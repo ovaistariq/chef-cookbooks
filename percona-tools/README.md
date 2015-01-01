@@ -44,10 +44,10 @@ In order to keep the README managable and in sync with the attributes, this cook
 
 License & Authors
 -----------------
-- Author: Ovais Tariq (<ovaistariq@gmail.com>)
+- Author: Ovais Tariq (<me@ovaistariq.net>)
 
 ```text
-(c) 2014, Ovais Tariq <ovaistariq@gmail.com>
+(c) 2014, Ovais Tariq <me@ovaistariq.net>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by

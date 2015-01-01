@@ -1,6 +1,6 @@
 name              "percona-tools"
 maintainer        "Ovais Tariq"
-maintainer_email  "ovaistariq@gmail.com"
+maintainer_email  "me@ovaistariq.net"
 description 	  "Installs/Configures percona-tools"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 version           "0.5.0"
