@@ -41,6 +41,7 @@ else
     else
         ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
         node.set["percona_tools"]["read_only_user"]["password"] = secure_password
+        mysql_ro_pass = secure_password
     end
 
     if node["percona_tools"]["read_write_user"].attribute?("password")
@@ -48,6 +49,7 @@ else
     else
         ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
         node.set["percona_tools"]["read_write_user"]["password"] = secure_password
+        mysql_rw_pass = secure_password
     end
 end
 
