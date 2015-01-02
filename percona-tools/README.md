@@ -38,6 +38,54 @@ Then, in a recipe:
 include_recipe "percona-tools"
 ```
 
+#### MySQL users used by the cookbook
+The cookbook requires the MySQL root user password and the password for two separate users that are setup for use by percona-toolkit. By default the usernames used are "ptro" for user with read-only privileges and "ptrw" for user with read-write privileges. You can change the usernames used by setting the below attributes:
+```
+node.set["percona_tools"]["read_only_user"]["username"] = "some_other_read_only_username"
+node.set["percona_tools"]["read_write_user"]["username"] = "some_other_read_write_username"
+```
+
+If data bags are not being used to store the passwords for the users then the following attribute must store the "root" user password:
+```
+node.set["mysql"]["root_password"] = "changeme"
+```
+
+And the following attribute must store the passwords for the two additional users used by percona-toolkit:
+```
+node.set["percona_tools"]["read_only_user"]["password"] = "changeme"
+node.set["percona_tools"]["read_write_user"]["password"] = "changeme"
+```
+
+If you do not set the password then they are randomly generated using OpenSSL and stored in the attributes mentioned above.
+
+
+#### Using encrypted data bag for storing MySQL credentials
+It is recommended though to store the user passwords in encrypted data bag.
+If encrypted data bag is being used then the following attribute must be set:
+```
+node.set["percona_tools"]["use_encrypted_databag"] = true
+node.set["percona_tools"]["databag_name"] = "passwords"
+node.set["percona_tools"]["databag_item"] = "mysql_users"
+```
+
+The above assumes that a data bag was created as follows:
+```
+knife data bag create passwords mysql_users --secret-file /path/to/databag_encryption_key
+```
+
+An example data bag item json is shown below:
+```
+{
+    "id": "mysql_users",
+    "root": "some_secure_password",
+    "ptro": "another_secure_password",
+    "ptrw": "yet_another_secure_password"
+}
+```
+
+The above example assumes that the default users "ptro" and "ptrw" are being used.
+
+
 Attributes
 ----------
 In order to keep the README managable and in sync with the attributes, this cookbook documents attributes inline. The usage instructions and default values for attributes can be found in the individual attribute files.
