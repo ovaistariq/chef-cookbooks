@@ -20,3 +20,7 @@ default["percona_tools"]["read_write_user"] = {
     "username" => "ptrw",
     "allowed_hosts" => ["%", "localhost"]
 }
+
+default["percona_tools"]["use_encrypted_databag"] = false
+default["percona_tools"]["databag_name"] = "passwords"
+default["percona_tools"]["databag_item"] = "mysql_users"

@@ -18,18 +18,38 @@ toolkit_version = node["percona_tools"]["toolkit"]["version"]
 xtrabackup_version = node["percona_tools"]["xtrabackup"]["version"]
 
 mysql_socket = node["mysql"]["socket"]
-mysql_root_pass = node["mysql"]["root_password"]
 mysql_ro_user = node["percona_tools"]["read_only_user"]["username"]
 mysql_rw_user = node["percona_tools"]["read_write_user"]["username"]
 
-# Generate a secure random password using OpenSSL
-::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-node.set_unless["percona_tools"]["read_only_user"]["password"] = secure_password
-mysql_ro_pass = secure_password
+# here we check if databag has been setup to be used for fetching
+# the mysql user passwords
+if node["percona_tools"].attribute?("use_encrypted_databag") && node["percona_tools"]["use_encrypted_databag"]
+    mysql_user_credentials = Chef::EncryptedDataBagItem.load(node["percona_tools"]["databag_name"], node["percona_tools"]["databag_item"])
 
-::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
-node.set_unless["percona_tools"]["read_write_user"]["password"] = secure_password
-mysql_rw_pass = secure_password
+    mysql_root_pass = mysql_user_credentials["root"]
+    mysql_ro_pass = mysql_user_credentials[mysql_ro_user]
+    mysql_rw_pass = mysql_user_credentials[mysql_rw_user]
+else
+    # Otherwise we try to fetch the mysql root user password 
+    # from a node attribute
+    mysql_root_pass = node["mysql"]["root_password"]
+
+    # and we generate secure passwords for percona-toolkit 
+    # specific users using OpenSSL
+    if node["percona_tools"]["read_only_user"].attribute?("password")
+        mysql_ro_pass = node["percona_tools"]["read_only_user"]["password"]
+    else
+        ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+        node.set["percona_tools"]["read_only_user"]["password"] = secure_password
+    end
+
+    if node["percona_tools"]["read_write_user"].attribute?("password")
+        mysql_rw_pass = node["percona_tools"]["read_write_user"]["password"]
+    else
+        ::Chef::Recipe.send(:include, Opscode::OpenSSL::Password)
+        node.set["percona_tools"]["read_write_user"]["password"] = secure_password
+    end
+end
 
 # Install the tools
 yum_package "percona-toolkit" do
@@ -49,7 +69,8 @@ for conf_file in [ ".pt-table-checksum.conf", ".pt-slave-find.conf", ".pt-mysql-
     template "/root/#{conf_file}" do
         variables(
             :username => mysql_ro_user,
-            :password => mysql_ro_pass
+            :password => mysql_ro_pass,
+            :socket => mysql_socket
         )
         source "pt_tool.conf.erb"
         owner "root"
@@ -64,7 +85,8 @@ for conf_file in [ ".pt-table-sync.conf", ".pt-online-schema-change.conf" ] do
     template "/root/#{conf_file}" do
         variables(
             :username => mysql_rw_user,
-            :password => mysql_rw_pass
+            :password => mysql_rw_pass,
+            :socket => mysql_socket
         )
         source "pt_tool.conf.erb"
         owner "root"
