@@ -1,0 +1,22 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.4
+  - name: centos-6.5
+  - name: centos-7.0
+
+suites:
+  - name: default
+    run_list:
+      - recipe[mysql_server_client_test::default]
+      - recipe[mysql-sys::default]
+    attributes:
+      mysql:
+        version: "5.6"
+        root_password: "root"
+        socket: "/var/run/mysql-default/mysqld.sock"
