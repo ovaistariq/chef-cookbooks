@@ -20,12 +20,12 @@ default["percona_tools"]["toolkit"]["version"] = "2.2.11-1"
 # to MySQL using these usernames
 default["percona_tools"]["read_only_user"] = {
     "username" => "ptro",
-    "allowed_hosts" => ["%", "localhost"]
+    "allowed_hosts" => ["%", "#{node['fqdn']}", "localhost"]
 }
 
 default["percona_tools"]["read_write_user"] = {
     "username" => "ptrw",
-    "allowed_hosts" => ["%", "localhost"]
+    "allowed_hosts" => ["%", "#{node['fqdn']}", "localhost"]
 }
 
 # If encrypted databags are being used (which is recommended) then 
