@@ -9,7 +9,7 @@ include_recipe "percona-tools::percona_repo"
 # This is explained in the issue https://github.com/opscode-cookbooks/database/issues/101
 include_recipe "database"
 
-mysql_chef_gem 'default' do
+mysql_chef_gem "default" do
   action :install
 end
 
