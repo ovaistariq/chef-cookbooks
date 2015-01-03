@@ -15,6 +15,10 @@ suites:
     run_list:
       - recipe[mysql_server_client_test::default]
       - recipe[percona-tools::default]
+    includes: [
+      'centos-6.4',
+      'centos-6.5'
+    ]
     attributes:
       mysql:
         version: "5.1"
@@ -28,6 +32,11 @@ suites:
     run_list:
       - recipe[mysql_server_client_test::default]
       - recipe[percona-tools::default]
+    includes: [
+      'centos-6.4',
+      'centos-6.5',
+      'centos-7.0'
+    ]
     attributes:
       mysql:
         version: "5.5"
@@ -41,6 +50,11 @@ suites:
     run_list:
       - recipe[mysql_server_client_test::default]
       - recipe[percona-tools::default]
+    includes: [
+      'centos-6.4',
+      'centos-6.5',
+      'centos-7.0'
+    ]
     attributes:
       mysql:
         version: "5.6"

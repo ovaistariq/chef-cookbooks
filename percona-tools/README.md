@@ -19,10 +19,15 @@ The following platforms are supported:
 
 The following 64-bit platforms have been tested:
 * CentOS 6.4
+* CentOS 6.5
+* CentOS 7.0
 
 Cookbook Dependencies
 ---------------------
 - yum
+- mysql-chef_gem
+- database
+- openssl
 
 Usage
 -----
@@ -88,7 +93,40 @@ The above example assumes that the default users "ptro" and "ptrw" are being use
 
 Attributes
 ----------
-In order to keep the README managable and in sync with the attributes, this cookbook documents attributes inline. The usage instructions and default values for attributes can be found in the individual attribute files.
+The following attributes are set by default:
+```
+default["percona_tools"]["yum"]["description"] = "CentOS $releasever - Percona"
+default["percona_tools"]["yum"]["baseurl"] = "http://repo.percona.com/centos/$releasever/os/$basearch/"
+default["percona_tools"]["yum"]["gpgkey"] = "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
+default["percona_tools"]["yum"]["gpgcheck"] = true
+default["percona_tools"]["xtrabackup"]["version"] = "2.2.5-5027.el6"
+default["percona_tools"]["toolkit"]["version"] = "2.2.11-1"
+default["percona_tools"]["read_only_user"] = {
+    "username" => "ptro",
+    "allowed_hosts" => ["%", "#{node['fqdn']}", "localhost"]
+}
+default["percona_tools"]["read_write_user"] = {
+    "username" => "ptrw",
+    "allowed_hosts" => ["%", "#{node['fqdn']}", "localhost"]
+}
+default["percona_tools"]["use_encrypted_databag"] = false
+default["percona_tools"]["databag_name"] = "passwords"
+default["percona_tools"]["databag_item"] = "mysql_users"
+```
+
+The other attribute that is needed and not set by default is:
+```
+node["mysql"]["socket"]
+```
+
+Contributing
+------------
+1. Fork the repository on Github
+2. Create a named feature branch (like `add_component_x`)
+3. Write your change
+4. Write tests for your change (if applicable)
+5. Run the tests, ensuring they all pass
+6. Submit a Pull Request using Github
 
 License & Authors
 -----------------
