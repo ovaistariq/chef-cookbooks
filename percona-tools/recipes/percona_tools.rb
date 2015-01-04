@@ -13,8 +13,15 @@ mysql_chef_gem "default" do
 end
 
 # Tools versions
-toolkit_version = node["percona_tools"]["toolkit"]["version"]
-xtrabackup_version = node["percona_tools"]["xtrabackup"]["version"]
+if node["platform"] == "redhat"
+  if node["platform_version"].to_f >= 7.0
+    toolkit_version = node["percona_tools"]["toolkit"]["version"]
+    xtrabackup_version = node["percona_tools"]["xtrabackup"]["version"] + ".el7"
+  elsif node["platform_version"].to_f >= 6.0
+    toolkit_version = node["percona_tools"]["toolkit"]["version"]
+    xtrabackup_version = node["percona_tools"]["xtrabackup"]["version"] + ".el6"
+  end
+end
 
 mysql_socket = node["mysql"]["socket"]
 mysql_ro_user = node["percona_tools"]["read_only_user"]["username"]

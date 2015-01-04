@@ -31,32 +31,46 @@ Cookbook Dependencies
 
 Usage
 -----
-Place a dependency on the percona-tools cookbook in your cookbook's  metadata.rb
+Just include `mysql-sys` in your node's `run_list`:
 
+```json
+{
+  "name":"my_node",
+  "run_list": [
+    "recipe[mysql-sys]"
+  ]
+}
 ```
+
+Or, place a dependency on the percona-tools cookbook in your cookbook's  metadata.rb
+
+```ruby
 depends "percona-tools", "~> 0.5"
 ```
 
 Then, in a recipe:
 
-```
+```ruby
 include_recipe "percona-tools"
 ```
 
+#### MySQL versions supported
+MySQL versions 5.1, 5.5 and 5.6 are supported
+
 #### MySQL users used by the cookbook
 The cookbook requires the MySQL root user password and the password for two separate users that are setup for use by percona-toolkit. By default the usernames used are "ptro" for user with read-only privileges and "ptrw" for user with read-write privileges. You can change the usernames used by setting the below attributes:
-```
+```ruby
 node.set["percona_tools"]["read_only_user"]["username"] = "some_other_read_only_username"
 node.set["percona_tools"]["read_write_user"]["username"] = "some_other_read_write_username"
 ```
 
 If data bags are not being used to store the passwords for the users then the following attribute must store the "root" user password:
-```
+```ruby
 node.set["mysql"]["root_password"] = "changeme"
 ```
 
 And the following attribute must store the passwords for the two additional users used by percona-toolkit:
-```
+```ruby
 node.set["percona_tools"]["read_only_user"]["password"] = "changeme"
 node.set["percona_tools"]["read_write_user"]["password"] = "changeme"
 ```
@@ -67,7 +81,7 @@ If you do not set the password then they are randomly generated using OpenSSL an
 #### Using encrypted data bag for storing MySQL credentials
 It is recommended though to store the user passwords in encrypted data bag.
 If encrypted data bag is being used then the following attribute must be set:
-```
+```ruby
 node.set["percona_tools"]["use_encrypted_databag"] = true
 node.set["percona_tools"]["databag_name"] = "passwords"
 node.set["percona_tools"]["databag_item"] = "mysql_users"
@@ -79,7 +93,7 @@ knife data bag create passwords mysql_users --secret-file /path/to/databag_encry
 ```
 
 An example data bag item json is shown below:
-```
+```json
 {
     "id": "mysql_users",
     "root": "some_secure_password",
@@ -94,12 +108,12 @@ The above example assumes that the default users "ptro" and "ptrw" are being use
 Attributes
 ----------
 The following attributes are set by default:
-```
+```ruby
 default["percona_tools"]["yum"]["description"] = "CentOS $releasever - Percona"
 default["percona_tools"]["yum"]["baseurl"] = "http://repo.percona.com/centos/$releasever/os/$basearch/"
 default["percona_tools"]["yum"]["gpgkey"] = "http://www.percona.com/downloads/RPM-GPG-KEY-percona"
 default["percona_tools"]["yum"]["gpgcheck"] = true
-default["percona_tools"]["xtrabackup"]["version"] = "2.2.5-5027.el6"
+default["percona_tools"]["xtrabackup"]["version"] = "2.2.5-5027"
 default["percona_tools"]["toolkit"]["version"] = "2.2.11-1"
 default["percona_tools"]["read_only_user"] = {
     "username" => "ptro",
@@ -115,7 +129,7 @@ default["percona_tools"]["databag_item"] = "mysql_users"
 ```
 
 The other attribute that is needed and not set by default is:
-```
+```ruby
 node["mysql"]["socket"]
 ```
 

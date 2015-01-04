@@ -10,7 +10,7 @@ default["percona_tools"]["yum"]["gpgkey"] = "http://www.percona.com/downloads/RP
 default["percona_tools"]["yum"]["gpgcheck"] = true
 
 # The Percona tools versions
-default["percona_tools"]["xtrabackup"]["version"] = "2.2.5-5027.el6"
+default["percona_tools"]["xtrabackup"]["version"] = "2.2.5-5027"
 default["percona_tools"]["toolkit"]["version"] = "2.2.11-1"
 
 # The definition of the MySQL users used by perconat-toolkit
