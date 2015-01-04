@@ -27,7 +27,6 @@ Cookbook Dependencies
 
 Usage
 -----
-#### mysql-sys::default
 Just include `mysql-sys` in your node's `run_list`:
 
 ```json
@@ -43,6 +42,9 @@ Or include the default recipe in another cookbook
 ```ruby
 include_recipe "mysql-sys::default"
 ```
+
+#### MySQL versions supported
+MySQL version 5.6 is supported
 
 #### MySQL users used by the cookbook
 The cookbook requires the MySQL root user password.
