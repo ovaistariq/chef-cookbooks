@@ -43,8 +43,8 @@ mysql_connection_info = {
 
 # Checkout the mysql-sys repository
 git mysql_sys_src_dir do
-    repository "#{node["mysql_sys"]["git_repository"]}"
-    revision "#{node["mysql_sys"]["git_revision"]}"
+    repository node["mysql_sys"]["git_repository"]
+    revision node["mysql_sys"]["git_revision"]
     action :sync
 end
 
