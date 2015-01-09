@@ -3,7 +3,7 @@ maintainer        "Ovais Tariq"
 maintainer_email  "me@ovaistariq.net"
 description       "Installs the mysql-sys tool. Description of the tool is available here https://github.com/MarkLeith/mysql-sys"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.5.0"
+version           "0.5.1"
 license           "All rights reserved"
 
 recipe "mysql-sys",       "Installs the mysql-sys tool"
