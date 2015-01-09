@@ -3,7 +3,7 @@ maintainer        "Ovais Tariq"
 maintainer_email  "me@ovaistariq.net"
 description 	  "Installs/Configures percona-tools"
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version           "0.5.0"
+version           "0.5.1"
 license           "All rights reserved"
 
 recipe "percona-tools",                     "Includes the percona_repo and percona_tools recipes"

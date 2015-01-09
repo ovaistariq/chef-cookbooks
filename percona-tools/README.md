@@ -135,7 +135,7 @@ node["mysql"]["socket"]
 
 Contributing
 ------------
-1. Fork the repository on Github
+1. Fork the repository https://github.com/ovaistariq/chef-cookbooks.git on Github
 2. Create a named feature branch (like `add_component_x`)
 3. Write your change
 4. Write tests for your change (if applicable)
