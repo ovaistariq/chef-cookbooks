@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.5
+
+suites:
+  - name: employees
+    run_list:
+        - recipe[mysql-server-test::default]
+        - recipe[mysql-test-schema::employees]
+    attributes:
+      mysql:
+       version: '5.5'
+
+  - name: sakila
+    run_list:
+        - recipe[mysql-server-test::default]
+        - recipe[mysql-test-schema::sakila]
+    attributes:
+      mysql:
+       version: '5.5'
