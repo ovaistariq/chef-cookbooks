@@ -8,6 +8,18 @@ src_filename = node["mysql_test_schema"]["sakila"]["dump_filename"]
 src_filepath = "#{Chef::Config['file_cache_path']}/#{src_filename}"
 extract_path = "#{Chef::Config['file_cache_path']}/sakila-db/#{node['mysql_test_schema']['sakila']['checksum']}"
 
+# MySQL authentication related
+mysql_socket = node["mysql"]["socket"]
+if node["mysql_test_schema"].attribute?("use_encrypted_databag") && node["mysql_test_schema"]["use_encrypted_databag"]
+    mysql_user_credentials = Chef::EncryptedDataBagItem.load(node["mysql_test_schema"]["databag_name"], node["mysql_test_schema"]["databag_item"])
+
+    mysql_root_pass = mysql_user_credentials["root"]
+else
+    # Otherwise we try to fetch the mysql root user password 
+    # from a node attribute
+    mysql_root_pass = node["mysql"]["root_password"]
+end
+
 # Download the employees db dump
 remote_file src_filepath do
   owner "root"
@@ -38,7 +50,7 @@ bash "load_sakila_db_dump_mysql" do
   user "root"
   cwd extract_path
   code <<-EOH
-    mysql -t < sakila-schema.sql
-    mysql -t < sakila-data.sql
+    mysql --user=root --password=#{mysql_root_pass} --socket=#{mysql_socket} -t < sakila-schema.sql
+    mysql --user=root --password=#{mysql_root_pass} --socket=#{mysql_socket} -t < sakila-data.sql
   EOH
 end
