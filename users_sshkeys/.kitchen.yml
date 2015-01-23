@@ -1,0 +1,18 @@
+---
+driver:
+  name: vagrant
+  vagrantfile_erb: Vagrantfile.erb
+
+provisioner:
+  name: chef_zero
+  data_bags_path: "test/fixtures/data_bags"
+  encrypted_data_bag_secret_key_path: "test/fixtures/test_encrypted_data_bag_secret"
+
+platforms:
+  - name: centos-6.5
+
+suites:
+  - name: default
+    run_list:
+        - recipe[test_user::default]
+    attributes:

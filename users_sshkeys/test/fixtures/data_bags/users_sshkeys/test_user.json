@@ -1,0 +1,15 @@
+{
+  "id": "test_user",
+  "ssh_keys": {
+    "encrypted_data": "ChvWs9OVO8K90lXludnhR79g4NbmO872RuB4AMNABgklUJiCt73WwhE8cP6i\n4yZspzlF4WRH96uEyWkO8rhWEQ==\n",
+    "iv": "9NvAyVwPe5tBilRpMf3vLg==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  },
+  "ssh_private_key": {
+    "encrypted_data": "cf1C0sCuLQFGknl7Kkl8CMZP3enwFfuaY9ZksqflLczhMG0j+S72S1lT4DPO\nCdjVYFF+dF7TsNzPcOq22b5vs/LaXvHEhgfG+QUwAkVaJrMd+7lqbL+i2BSm\nZH3m+/xCD4iO3xySfZ5AhQayrAa+voYZPXgyxibXPpFs9xEH84E=\n",
+    "iv": "TazEzMyYdZIED0O15gVziw==\n",
+    "version": 1,
+    "cipher": "aes-256-cbc"
+  }
+}
