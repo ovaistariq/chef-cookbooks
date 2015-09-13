@@ -12,4 +12,4 @@ default["mysql_test_schema"]["employee"]["checksum"] = "9be9b830a185e947758581cb
 # The attributes are related to the sakila db dump
 default["mysql_test_schema"]["sakila"]["url"] = "http://downloads.mysql.com/docs"
 default["mysql_test_schema"]["sakila"]["dump_filename"] = "sakila-db.tar.gz"
-default["mysql_test_schema"]["sakila"]["checksum"] = "619bad5852078d30d7812492f4e75b3b4baeae99034b34a4934b3715c2abf2b8"
+default["mysql_test_schema"]["sakila"]["checksum"] = "5879c37ddf08a5f97111ffd15e05c12f31a68843ce91f7e0d40ad45e6cce0ce4"
