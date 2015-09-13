@@ -1,0 +1,6 @@
+{
+  "id": "test_user",
+  "comment": "test_user",
+  "uid": 6001,
+  "groups": [ "test_user" ]
+}

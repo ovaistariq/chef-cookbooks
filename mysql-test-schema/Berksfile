@@ -2,4 +2,4 @@ source "https://supermarket.getchef.com"
 
 metadata
 
-cookbook 'mysql-server-test', path: 'test/fixtures/cookbooks/mysql-server-test'
+cookbook "mysql_server_client_test", path: "test/fixtures/cookbooks/mysql_server_client_test"

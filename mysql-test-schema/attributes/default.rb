@@ -13,3 +13,13 @@ default["mysql_test_schema"]["employee"]["checksum"] = "9be9b830a185e947758581cb
 default["mysql_test_schema"]["sakila"]["url"] = "http://downloads.mysql.com/docs"
 default["mysql_test_schema"]["sakila"]["dump_filename"] = "sakila-db.tar.gz"
 default["mysql_test_schema"]["sakila"]["checksum"] = "5879c37ddf08a5f97111ffd15e05c12f31a68843ce91f7e0d40ad45e6cce0ce4"
+
+# Databags if available are used to retrieve the MySQL root user password.
+# If encrypted databags are being used (which is recommended) then
+# `use_encrypted_databag` should be set to true
+default["mysql_test_schema"]["use_encrypted_databag"] = false
+
+# These attributes are the data bag name and item name that are used when
+# retrieving MySQL user passwords from the data bag
+default["mysql_test_schema"]["databag_name"] = "passwords"
+default["mysql_test_schema"]["databag_item"] = "mysql_users"
